@@ -2,128 +2,596 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
-  />
-  <title>Toolbox Talk – Daylight Saving Time Safety</title>
-  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <title>Toolbox Talk — Daylight Saving Time Safety</title>
   <meta name="theme-color" content="#0b1220"/>
 
-  <!-- Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
-      --bg: #0b1220;
-      --panel: #0f172a;
-      --card: #0f172a;
-      --border: rgba(255,255,255,0.10);
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --brand: #60a5fa;
-      --brand-2: #22d3ee;
-      --err: #f87171;
+      --bg:#0b1220; --bg2:#101a32; --glass:rgba(255,255,255,.06);
+      --card:#0f172a; --border:rgba(255,255,255,.12);
+      --text:#e5e7eb; --muted:#94a3b8;
+      --brand:#60a5fa; --brand2:#22d3ee; --ok:#34d399; --warn:#fbbf24; --err:#f87171;
+      --card-grad: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      --radius:18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:var(--text);
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--text);
       background:
-        radial-gradient(1200px 600px at -10% -10%, #1e293b 0%, transparent 60%),
-        radial-gradient(1200px 600px at 110% -10%, #0ea5e9 0%, transparent 60%),
-        radial-gradient(1200px 600px at 50% 120%, #1f2937 0%, transparent 60%),
+        radial-gradient(900px 450px at -10% -10%, #1e293b 0%, transparent 60%),
+        radial-gradient(900px 450px at 110% -10%, #0ea5e9 0%, transparent 60%),
+        radial-gradient(900px 450px at 50% 120%, #1f2937 0%, transparent 60%),
         var(--bg);
     }
-    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
     header.appbar{
-      position:sticky; top:0; z-index:20;
+      position:sticky; top:0; z-index:10;
       display:flex; align-items:center; gap:14px;
       background: linear-gradient(180deg, #0b1220 0%, rgba(11,18,32,.85) 100%);
       border-bottom:1px solid var(--border);
       backdrop-filter:saturate(140%) blur(6px);
-      padding:14px 18px;
+      padding:12px 16px;
     }
     header.appbar img{width:60px;height:60px;border-radius:14px;object-fit:cover;border:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.25)}
     header.appbar h1{font-size:20px; font-weight:700; margin:0}
     header.appbar .subtitle{color:var(--muted); font-size:13px}
     .kicker{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--brand)}
-    .card{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);margin-bottom:18px}
-    .card .hd{padding:14px 16px;font-weight:600;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.03)}
-    .card .bd{padding:16px}
-    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .grid{display:grid; gap:14px}
+    @media(min-width:720px){.cols-2{grid-template-columns:1fr 1fr}.cols-3{grid-template-columns:repeat(3,1fr)}}
+
+    /* Cards */
+    .card{background:var(--glass); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04); overflow:hidden;}
+    .card .hd{position:sticky; top:64px; z-index:1; padding:12px 14px; font-weight:600; display:flex; align-items:center; gap:10px;
+      background:var(--card-grad); border-bottom:1px solid var(--border)}
+    .card .bd{padding:14px}
+    .hd svg{opacity:.9}
+
+    /* Inputs */
+    label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px 2px}
     input,textarea,select{
-      width:100%;background:rgba(255,255,255,0.04);color:var(--text);
-      border:1px solid var(--border);border-radius:12px;
-      padding:10px 12px;font-size:14px;outline:none;
+      width:100%; background:rgba(255,255,255,.04); color:var(--text);
+      border:1px solid var(--border); border-radius:12px; padding:10px 12px; font-size:14px; outline:none;
+      transition:border-color .15s, box-shadow .15s, background .15s;
     }
-    input:focus,textarea:focus{border-color:var(--brand)}
-    .btn{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,0.05);
-      color:var(--text);border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#0b1220}
-    .toolbar{position:sticky;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
-      gap:10px;padding:10px 12px;background:rgba(11,18,32,0.9);border-top:1px solid var(--border);backdrop-filter:blur(10px);}
-    .toast{position:fixed;right:14px;bottom:14px;background:#0b1220;color:#fff;
-      border:1px solid var(--border);border-radius:12px;padding:10px 12px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
-    .invalid{border-color:var(--err)!important;box-shadow:0 0 0 2px rgba(248,113,113,.2)!important}
+    input:focus, textarea:focus, select:focus{ border-color: rgba(96,165,250,.65); box-shadow:0 0 0 3px rgba(59,130,246,.25); background:rgba(255,255,255,.06) }
+    .invalid{border-color:var(--err)!important; box-shadow:0 0 0 3px rgba(248,113,113,.2)!important}
+    .hint{font-size:12px; color:var(--muted)}
+    .req{color:var(--err)}
+
+    /* Pills & switches */
+    .pill{display:inline-flex; align-items:center; gap:10px; padding:8px 10px; border:1px solid var(--border); border-radius:999px; background:rgba(255,255,255,.04); margin:4px 6px 0 0}
+    .switch{width:44px;height:26px;border-radius:999px;border:1px solid var(--border);
+      background:rgba(255,255,255,.12); position:relative; transition: all .15s}
+    .switch.on{background:linear-gradient(135deg, var(--brand), var(--brand2)); border-color:transparent}
+    .switch .dot{position:absolute; top:2px; left:2px; width:22px; height:22px; background:#0b1220; border-radius:50%; transition: all .15s}
+    .switch.on .dot{left:20px; background:white}
+
+    /* Table */
+    .table{width:100%; border-collapse:collapse; font-size:14px}
+    .table th,.table td{border-top:1px solid var(--border); padding:10px 8px; vertical-align:top}
+    .table thead th{background:rgba(255,255,255,.03); font-weight:600; position:sticky; top:calc(64px + 44px); z-index:1}
+
+    /* Buttons & toolbar */
+    .toolbar{position:sticky; bottom:0; left:0; right:0; display:flex; justify-content:space-between; gap:10px; padding:10px 12px;
+      background: linear-gradient(180deg, rgba(11,18,32,.6) 0%, rgba(11,18,32,.9) 100%); border-top:1px solid var(--border); backdrop-filter: blur(10px);}
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{appearance:none; border:1px solid var(--border); background:rgba(255,255,255,.04); color:var(--text); border-radius:12px; padding:10px 14px; font-weight:600; transition: transform .04s ease, background .15s, border-color .15s; cursor:pointer}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand2)); border-color:transparent; color:#0b1220}
+    .btn.alt{border-color:rgba(96,165,250,.5)}
+    .btn.warn{border-color:rgba(248,113,113,.5); color:#fecaca; background:rgba(248,113,113,.1)}
+    .btn.ghost{background:transparent}
+
+    /* Toast */
+    .toast{position:fixed; right:14px; bottom:14px; background:#0b1220; color:#fff; border:1px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:0 16px 40px rgba(0,0,0,.5); display:none}
+
+    /* Signature */
+    canvas.sig{width:100%; height:170px; border:1px dashed var(--border); border-radius:12px; background:rgba(255,255,255,.04)}
+    .fileman ul{list-style:none; margin:0; padding:0}
+    .fileman li{display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); padding:12px 6px}
+    .fileman .name{font-weight:600}
+    .fileman .meta{color:var(--muted); font-size:12px}
+    .print-area{padding:12px; color:#111827} /* For PDF render */
   </style>
 </head>
 
 <body>
-  <!-- Header with your logo -->
+  <!-- App Bar -->
   <header class="appbar">
-    <img id="logo" src="Flawless%20logo.jpg" alt="Flawless Steel Welding logo"/>
+    <img id="logo" src="Flawless%20logo.jpg" alt="Company logo"/>
     <div>
       <div class="kicker">Flawless Steel Welding</div>
-      <h1>Toolbox Talk – Daylight Saving Time Safety</h1>
-      <div class="subtitle">Mobile friendly • Offline capable • PDF exports</div>
+      <h1>Toolbox Talk — Daylight Saving Time Safety</h1>
+      <div class="subtitle">Professional • Responsive • PDF & Word Exports</div>
+    </div>
+    <div style="margin-left:auto" class="row">
+      <label class="pill" title="Toggle dark mode">
+        <span>Dark mode</span>
+        <button id="modeToggle" class="switch on" aria-label="Toggle dark mode"><span class="dot"></span></button>
+      </label>
     </div>
   </header>
 
   <div class="container">
-    <section class="card">
-      <div class="hd">General Information</div>
-      <div class="bd">
-        <label>Company</label><input id="company" value="Flawless Steel Welding">
-        <label>Project</label><input id="project" placeholder="Project name">
-        <label>Date</label><input id="date" type="date">
-        <label>Supervisor</label><input id="supervisor" placeholder="Supervisor name">
-        <label>Location</label><input id="location" placeholder="Site / Address">
+    <!-- GENERAL -->
+    <section class="card" id="sec-general">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h7" stroke="#9fb3c8" stroke-width="2" stroke-linecap="round"/></svg>
+        General <span class="hint" style="margin-left:auto">(<span class="req">*</span> required)</span>
+      </div>
+      <div class="bd grid cols-3">
+        <div><label>Topic <span class="req">*</span></label><input id="topic" required value="Fatigue & Hazard Awareness After Time Change"></div>
+        <div><label>Date <span class="req">*</span></label><input id="date" type="date"></div>
+        <div><label>Crew Size</label><input id="crew" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 6"></div>
+        <div><label>Foreman <span class="req">*</span></label><input id="foreman" required value="John Mallon"></div>
+        <div><label>Location</label><input id="location" value="NREL - 24005"></div>
       </div>
     </section>
 
-    <section class="card">
-      <div class="hd">Key Safety Points</div>
-      <div class="bd">
-        <ul style="margin:0;padding-left:18px;color:var(--text);line-height:1.6">
-          <li>Fatigue Awareness</li>
-          <li>Vehicle & Equipment Operation</li>
-          <li>Site Lighting & Visibility</li>
-          <li>Elevated Work – 100% Tie-off</li>
-          <li>Housekeeping & Situational Awareness</li>
+    <!-- PURPOSE -->
+    <section class="card" id="sec-purpose">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#9fb3c8" stroke-width="2" stroke-linecap="round"/></svg>
+        Purpose
+        <button class="btn ghost" style="margin-left:auto" data-collapse="purpose">Collapse</button>
+      </div>
+      <div class="bd collapsible-purpose">
+        <p>The start or end of Daylight-Saving Time (DST) disrupts normal sleep and body rhythms. Studies show a spike in workplace injuries, vehicle accidents, and near-misses during the first week after the time change.</p>
+        <p>This briefing reminds crews to slow down, rest properly, and re-check safety systems during the adjustment period.</p>
+      </div>
+    </section>
+
+    <!-- KEY SAFETY POINTS -->
+    <section class="card" id="sec-ksp">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#9fb3c8" stroke-width="2" stroke-linecap="round"/></svg>
+        Key Safety Points
+        <button class="btn ghost" style="margin-left:auto" data-collapse="ksp">Collapse</button>
+      </div>
+      <div class="bd collapsible-ksp">
+        <div class="pill">A. Fatigue Awareness<button class="switch on" data-kp="fatigue"><span class="dot"></span></button></div>
+        <ul style="margin:6px 0 12px 18px">
+          <li>A one-hour time change may cause drowsiness and slower reaction time.</li>
+          <li>Avoid rushing. Take micro-breaks and hydrate regularly.</li>
+          <li>Stretch before starting work; fatigue increases strain and trip risks.</li>
+        </ul>
+        <div class="pill">B. Vehicle & Equipment Operation<button class="switch on" data-kp="vehicle"><span class="dot"></span></button></div>
+        <ul style="margin:6px 0 12px 18px">
+          <li>Re-check lights, backup alarms, mirrors, and tire pressure on all company vehicles and MEWPs.</li>
+          <li>Adjust departure times for darker mornings or evenings.</li>
+          <li>Keep windshields clean; daylight increases glare hazards.</li>
+        </ul>
+        <div class="pill">C. Site Lighting & Visibility<button class="switch on" data-kp="lighting"><span class="dot"></span></button></div>
+        <ul style="margin:6px 0 12px 18px">
+          <li>Ensure temporary lighting and high-visibility PPE are in use per FSW Policy Section 21 (Tools & Equipment).</li>
+          <li>Verify all lighting towers and extension cords are inspected per OSHA 1926.403(b)(1) (electrical safety).</li>
+        </ul>
+        <div class="pill">D. Fatigue in Elevated Work<button class="switch on" data-kp="elevated"><span class="dot"></span></button></div>
+        <ul style="margin:6px 0 12px 18px">
+          <li>Fatigue and low light increase fall risk.</li>
+          <li>Supervisors must confirm 100% tie-off compliance per FSW Fall Protection Policy, Section 13, and OSHA 1926.760(a)(1).</li>
+        </ul>
+        <div class="pill">E. Housekeeping & Situational Awareness<button class="switch on" data-kp="housekeeping"><span class="dot"></span></button></div>
+        <ul style="margin:6px 0 0 18px">
+          <li>After dark, mark open holes, cords, and elevation changes with reflective tape or barricades.</li>
+          <li>Reinforce “eyes on path, hands on task” during the first week after DST.</li>
         </ul>
       </div>
     </section>
 
-    <section class="card">
-      <div class="hd">Notes</div>
-      <div class="bd">
-        <textarea id="notes" rows="5" placeholder="Any site-specific notes or reminders..."></textarea>
+    <!-- HAZARDS & CONTROLS -->
+    <section class="card" id="sec-haz">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l9 18H3L12 2z" stroke="#9fb3c8" stroke-width="2" stroke-linejoin="round"/></svg>
+        Hazards & Controls
+        <button class="btn ghost" style="margin-left:auto" data-collapse="haz">Collapse</button>
+      </div>
+      <div class="bd collapsible-haz">
+        <div class="hint" style="margin-bottom:8px">Add rows as needed.</div>
+        <div class="grid" style="overflow-x:auto">
+          <table class="table" id="hazTable">
+            <thead><tr><th>Task</th><th>Hazard</th><th>Control</th><th>PPE</th><th>Reference</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="addHaz" class="btn alt">+ Add Row</button>
+        </div>
       </div>
     </section>
 
+    <!-- CREW DISCUSSION -->
+    <section class="card" id="sec-discuss">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H9l-5 4V4z" stroke="#9fb3c8" stroke-width="2" stroke-linejoin="round"/></svg>
+        Crew Discussion Prompts
+        <button class="btn ghost" style="margin-left:auto" data-collapse="discuss">Collapse</button>
+      </div>
+      <div class="bd collapsible-discuss">
+        <ul style="margin:0 0 0 18px; line-height:1.6">
+          <li>How many hours of sleep did you get last night?</li>
+          <li>Are all lighting systems and backup alarms functioning?</li>
+          <li>Are you alert enough to perform critical lifts or welding?</li>
+          <li>Do we need to adjust our break schedule this week?</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ACTION ITEMS -->
+    <section class="card" id="sec-actions">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 12l4 4 8-8" stroke="#9fb3c8" stroke-width="2" stroke-linecap="round"/></svg>
+        Action Items
+        <button class="btn ghost" style="margin-left:auto" data-collapse="actions">Collapse</button>
+      </div>
+      <div class="bd collapsible-actions">
+        <ul style="margin:0 0 0 18px; line-height:1.6">
+          <li>Inspect all lighting and PPE.</li>
+          <li>Adjust work start times if needed.</li>
+          <li>Report any fatigue or vision-related near-miss to the foreman immediately.</li>
+          <li>Reinforce “Stop Work Authority” – anyone can pause work if unsafe.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SIGN-IN -->
+    <section class="card" id="sec-signin">
+      <div class="hd">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9a7 7 0 1114 0H5z" stroke="#9fb3c8" stroke-width="2" stroke-linejoin="round"/></svg>
+        Sign-In Sheet (Name / Signature / Date)
+        <button class="btn ghost" style="margin-left:auto" data-collapse="sign">Collapse</button>
+      </div>
+      <div class="bd collapsible-sign">
+        <div class="grid cols-3">
+          <div><label>Name</label><input id="attName" placeholder="Crew member name"></div>
+          <div><label>Date</label><input id="attDate" type="date"></div>
+          <div style="align-self:end"><button class="btn alt" id="addAtt">Add Attendee</button></div>
+        </div>
+        <div style="margin-top:10px">
+          <label>Signature (draw)</label>
+          <canvas id="sig" class="sig"></canvas>
+          <div class="row" style="margin-top:6px">
+            <button class="btn" id="saveSig">Save Signature</button>
+            <button class="btn warn" id="clearSig">Clear</button>
+          </div>
+        </div>
+        <div style="height:10px"></div>
+        <div id="attList" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- ACTION BAR -->
     <div class="toolbar">
-      <button class="btn" id="saveDraftBtn">Save Draft</button>
-      <button class="btn primary" id="exportPdfBtn">Export PDF</button>
+      <div class="row">
+        <button class="btn" id="validateBtn">Validate</button>
+        <button class="btn" id="saveDraftBtn">Save Draft</button>
+        <span class="hint" id="autosaveHint">Auto-save: every 30s</span>
+      </div>
+      <div class="row">
+        <button class="btn alt" id="exportDocxBtn" title="Optional Word export">Export Word</button>
+        <button class="btn primary" id="exportPdfBtn">Export PDF</button>
+      </div>
     </div>
 
-    <div id="toast" class="toast" style="display:none"></div>
+    <div id="toast" class="toast"></div>
   </div>
 
-  <!-- PDF + html2canvas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.3.2/docx.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    /* ===================== CONFIG ===================== */
+    const LOGO_SRC = "Flawless%20logo.jpg"; // change if your logo has another name
+    const STORE_KEY = "dst_toolbox_draft_v2";
+    const KP_DEFAULTS = {fatigue:true, vehicle:true, lighting:true, elevated:true, housekeeping:true};
+
+    /* ===================== HELPERS ===================== */
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const today = () => new Date().toISOString().slice(0,10);
+    const toast = (msg) => { const t=$("#toast"); t.textContent=msg; t.style.display="block"; clearTimeout(window.__t); window.__t=setTimeout(()=>t.style.display="none",2200); };
+    const escapeHtml = s => (s||"").replace(/[&<>\"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+    const clean = s => (s||"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+
+    /* ===================== THEME TOGGLE ===================== */
+    const modeToggle = $("#modeToggle");
+    modeToggle?.addEventListener("click", ()=>{
+      modeToggle.classList.toggle("on");
+      document.documentElement.style.setProperty("--bg", modeToggle.classList.contains("on") ? "#0b1220" : "#f8fafc");
+      document.documentElement.style.setProperty("--text", modeToggle.classList.contains("on") ? "#e5e7eb" : "#0f172a");
+      document.documentElement.style.setProperty("--muted", modeToggle.classList.contains("on") ? "#94a3b8" : "#475569");
+      document.body.style.background = modeToggle.classList.contains("on")
+        ? 'radial-gradient(900px 450px at -10% -10%, #1e293b 0%, transparent 60%), radial-gradient(900px 450px at 110% -10%, #0ea5e9 0%, transparent 60%), radial-gradient(900px 450px at 50% 120%, #1f2937 0%, transparent 60%), #0b1220'
+        : '#f8fafc';
+    });
+
+    /* ===================== INIT ===================== */
+    $("#date").value = today();
+    $("#topic").value ||= "Fatigue & Hazard Awareness After Time Change";
+    $("#foreman").value ||= "John Mallon";
+    $("#location").value ||= "NREL - 24005";
+    $("#logo").src = LOGO_SRC;
+
+    // collapsible
+    $$("[data-collapse]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const key = btn.getAttribute("data-collapse");
+        const el = document.querySelector(".collapsible-"+key);
+        if (!el) return;
+        const isHidden = el.style.display === "none";
+        el.style.display = isHidden ? "" : "none";
+        btn.textContent = isHidden ? "Collapse" : "Expand";
+      });
+    });
+
+    /* ===================== HAZARDS TABLE ===================== */
+    const defaultHazards = [
+      {task:"Morning travel / mobilization", hazard:"Fatigue, darkness", control:"Rest 7–8 hrs, allow extra commute time", ppe:"Hi-vis vest", ref:"OSHA 1926.21(b)(2)"},
+      {task:"Equipment operation", hazard:"Reduced alertness", control:"Pre-op inspections, peer spot checks", ppe:"Hard hat, eye protection", ref:"FSW Policy Sec. 26"},
+      {task:"Elevated work", hazard:"Fall hazard", control:"100% tie-off, inspect harness & lanyard", ppe:"Harness, SRL", ref:"1926.760(a)(1)"},
+      {task:"Lighting adjustment", hazard:"Electrical hazard", control:"GFCI, dry connections", ppe:"Gloves", ref:"1926.404(b)(1)(ii)"},
+      {task:"Site walking", hazard:"Trips/slips", control:"Mark uneven ground, keep pathways clear", ppe:"Boots", ref:"FSW Policy Sec. 30"},
+    ];
+    function addHazardRow(row){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input value="${escapeHtml(row.task||"")}" data-f="task"/></td>
+        <td><input value="${escapeHtml(row.hazard||"")}" data-f="hazard"/></td>
+        <td><input value="${escapeHtml(row.control||"")}" data-f="control"/></td>
+        <td><input value="${escapeHtml(row.ppe||"")}" data-f="ppe"/></td>
+        <td><input value="${escapeHtml(row.ref||"")}" data-f="ref"/></td>
+        <td><button class="btn warn" title="Remove row">✕</button></td>`;
+      tr.querySelector("button").onclick=()=>tr.remove();
+      $("#hazTable tbody").appendChild(tr);
+    }
+    defaultHazards.forEach(addHazardRow);
+    $("#addHaz").addEventListener("click", ()=> addHazardRow({}));
+
+    /* ===================== KEY POINT SWITCHES ===================== */
+    const KP_STATE = {...KP_DEFAULTS};
+    $$(".switch[data-kp]").forEach(sw=>{
+      sw.addEventListener("click",()=>{
+        sw.classList.toggle("on");
+        const key=sw.dataset.kp;
+        KP_STATE[key] = sw.classList.contains("on");
+      });
+    });
+
+    /* ===================== SIGNATURE PAD & ATTENDEES ===================== */
+    const sig = $("#sig"); const ctx = sig.getContext("2d");
+    let drawing=false, prev=null;
+    function resizeCanvas(){const r=sig.getBoundingClientRect(); const ratio=window.devicePixelRatio||1; sig.width=r.width*ratio; sig.height=r.height*ratio; ctx.setTransform(ratio,0,0,ratio,0,0); ctx.lineWidth=2; ctx.lineCap="round"; ctx.strokeStyle="#e5e7eb";}
+    function pos(e){ const t=e.touches? e.touches[0]: e; const r=sig.getBoundingClientRect(); return {x:t.clientX-r.left,y:t.clientY-r.top};}
+    function draw(e){ if(!drawing) return; const p=pos(e); ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x,p.y); ctx.stroke(); prev=p; }
+    function clearSig(){ctx.clearRect(0,0,sig.width,sig.height); resizeCanvas();}
+    resizeCanvas(); window.addEventListener("resize", resizeCanvas);
+    sig.addEventListener("mousedown",(e)=>{drawing=true; prev=pos(e)}); sig.addEventListener("mousemove",draw); window.addEventListener("mouseup",()=>drawing=false);
+    sig.addEventListener("touchstart",(e)=>{drawing=true; prev=pos(e)}); sig.addEventListener("touchmove",(e)=>{draw(e); e.preventDefault()},{passive:false}); window.addEventListener("touchend",()=>drawing=false);
+    $("#clearSig").onclick=clearSig;
+
+    const attendees = [];
+    function renderAttendees(){
+      const box=$("#attList"); box.innerHTML="";
+      attendees.forEach((a,i)=>{
+        const row=document.createElement("div"); row.className="row"; row.style.justifyContent="space-between";
+        row.innerHTML=`<div><div class="name">${escapeHtml(a.name)}</div><div class="meta">${escapeHtml(a.date||"")}</div><img src="${a.signature||""}" style="height:42px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.06)"></div>
+        <button class="btn warn" title="Delete">Delete</button>`;
+        row.querySelector("button").onclick=()=>{attendees.splice(i,1); renderAttendees();};
+        box.appendChild(row);
+      });
+    }
+    $("#addAtt").onclick=()=>{
+      const name=$("#attName").value.trim(); const date=$("#attDate").value || today();
+      if(!name){toast("Enter name"); return;}
+      const sigData = sig.toDataURL("image/png");
+      attendees.push({name, date, signature:sigData});
+      $("#attName").value=""; $("#attDate").value="";
+      clearSig(); renderAttendees(); toast("Attendee added");
+    };
+
+    /* ===================== VALIDATE ===================== */
+    function validate(){
+      let ok = true;
+      ["topic","date","foreman"].forEach(id=>{
+        const el = $("#"+id);
+        if(!el.value.trim()){ el.classList.add("invalid"); ok=false; }
+        else el.classList.remove("invalid");
+      });
+      if(!ok) toast("Please complete required fields");
+      return ok;
+    }
+    $("#validateBtn").onclick = validate;
+
+    /* ===================== COLLECT / FILL ===================== */
+    function collect(){
+      const hazards = Array.from($("#hazTable tbody").querySelectorAll("tr")).map(tr=>{
+        const cell = f => tr.querySelector(`[data-f="${f}"]`).value.trim();
+        return {task:cell("task"), hazard:cell("hazard"), control:cell("control"), ppe:cell("ppe"), ref:cell("ref")};
+      });
+      return {
+        topic:$("#topic").value.trim(), date:$("#date").value, crew:$("#crew").value.trim(),
+        foreman:$("#foreman").value.trim(), location:$("#location").value.trim(),
+        kp:{...KP_STATE}, hazards, attendees
+      };
+    }
+    function fill(d){
+      if(!d) return;
+      $("#topic").value=d.topic||$("#topic").value;
+      $("#date").value=d.date||today(); $("#crew").value=d.crew||""; $("#foreman").value=d.foreman||$("#foreman").value; $("#location").value=d.location||$("#location").value;
+      // kp
+      for(const k in KP_STATE){ const on = d.kp?.[k] ?? true; KP_STATE[k]=on; const sw = document.querySelector(`.switch[data-kp="${k}"]`); if(sw){ sw.classList.toggle("on", !!on); } }
+      // hazards
+      $("#hazTable tbody").innerHTML=""; (d.hazards?.length ? d.hazards : defaultHazards).forEach(addHazardRow);
+      // attendees
+      attendees.splice(0, attendees.length, ...(d.attendees||[])); renderAttendees();
+    }
+
+    /* ===================== SAVE DRAFT (manual + auto) ===================== */
+    function saveDraft(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(collect())); toast("Draft saved"); } catch(e){ toast("Could not save draft"); } }
+    $("#saveDraftBtn").onclick = saveDraft;
+    setInterval(()=>{ try{ localStorage.setItem(STORE_KEY, JSON.stringify(collect())); $("#autosaveHint").textContent="Auto-saved at "+new Date().toLocaleTimeString(); }catch{} }, 30000);
+    fill( JSON.parse(localStorage.getItem(STORE_KEY)||"null") );
+
+    /* ===================== PRINTABLE HTML ===================== */
+    function kpList(d){
+      const map = {fatigue:"Fatigue Awareness", vehicle:"Vehicle & Equipment Operation", lighting:"Site Lighting & Visibility", elevated:"Fatigue in Elevated Work", housekeeping:"Housekeeping & Situational Awareness"};
+      return Object.entries(d.kp||{}).filter(([,v])=>v).map(([k])=>map[k]).join(" • ");
+    }
+    function buildPrintableHTML(d){
+      const haz = (d.hazards||[]).map(h=>`<tr><td>${escapeHtml(h.task||"")}</td><td>${escapeHtml(h.hazard||"")}</td><td>${escapeHtml(h.control||"")}</td><td>${escapeHtml(h.ppe||"")}</td><td>${escapeHtml(h.ref||"")}</td></tr>`).join("");
+      const atts = (d.attendees||[]).map(a=>`<tr><td>${escapeHtml(a.name)}</td><td>${a.signature?`<img src="${a.signature}" style="height:26px;border:1px solid #e5e7eb;border-radius:6px"/>`:""}</td><td>${escapeHtml(a.date||"")}</td></tr>`).join("");
+      return `
+        <div style="display:flex;align-items:center;gap:12px;border-bottom:1px solid #e5e7eb;padding-bottom:8px;margin-bottom:8px">
+          <img src="${LOGO_SRC}" style="width:56px;height:56px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover"/>
+          <div>
+            <div style="font-size:18px;font-weight:700">Toolbox Talk — Daylight Saving Time Safety</div>
+            <div style="color:#64748b">Generated ${new Date().toLocaleString()}</div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <tr><td><b>Topic</b></td><td>${escapeHtml(d.topic||"")}</td><td><b>Date</b></td><td>${escapeHtml(d.date||"")}</td></tr>
+          <tr><td><b>Crew Size</b></td><td>${escapeHtml(d.crew||"")}</td><td><b>Foreman</b></td><td>${escapeHtml(d.foreman||"")}</td></tr>
+          <tr><td><b>Location</b></td><td colspan="3">${escapeHtml(d.location||"")}</td></tr>
+        </table>
+
+        <h3 style="margin:10px 0 4px 0">Purpose</h3>
+        <p style="margin:0 0 6px 0">The start or end of Daylight-Saving Time (DST) disrupts normal sleep and body rhythms. Studies show a spike in workplace injuries, vehicle accidents, and near-misses during the first week after the time change.</p>
+        <p style="margin:0 0 10px 0">This briefing reminds crews to slow down, rest properly, and re-check safety systems during the adjustment period.</p>
+
+        <h3 style="margin:10px 0 4px 0">Key Safety Points</h3>
+        <p style="margin:0 0 8px 0">${escapeHtml(kpList(d))}</p>
+
+        <h3 style="margin:10px 0 4px 0">Hazards & Controls</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:12px" border="1" cellspacing="0" cellpadding="4">
+          <thead><tr style="background:#f1f5f9"><th>Task</th><th>Hazard</th><th>Control</th><th>PPE</th><th>Ref</th></tr></thead>
+          <tbody>${haz}</tbody>
+        </table>
+
+        <h3 style="margin:10px 0 4px 0">Crew Discussion Prompts</h3>
+        <ul style="margin:0 0 10px 20px">
+          <li>How many hours of sleep did you get last night?</li>
+          <li>Are all lighting systems and backup alarms functioning?</li>
+          <li>Are you alert enough to perform critical lifts or welding?</li>
+          <li>Do we need to adjust our break schedule this week?</li>
+        </ul>
+
+        <h3 style="margin:10px 0 4px 0">Action Items</h3>
+        <ul style="margin:0 0 10px 20px">
+          <li>Inspect all lighting and PPE.</li>
+          <li>Adjust work start times if needed.</li>
+          <li>Report any fatigue or vision-related near-miss to the foreman immediately.</li>
+          <li>Reinforce “Stop Work Authority” – anyone can pause work if unsafe.</li>
+        </ul>
+
+        <h3 style="margin:10px 0 4px 0">Sign-In</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:12px" border="1" cellspacing="0" cellpadding="4">
+          <thead><tr style="background:#f1f5f9"><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+          <tbody>${atts || "<tr><td colspan='3'><i>No attendees captured</i></td></tr>"}</tbody>
+        </table>
+      `;
+    }
+
+    /* ===================== PDF EXPORT (paginated) ===================== */
+    $("#exportPdfBtn").onclick = async ()=>{
+      if(!validate()) return;
+      const { jsPDF } = window.jspdf;
+      const data = collect();
+      const pa = document.createElement("div"); pa.className="print-area"; pa.style.width="794px";
+      pa.innerHTML = buildPrintableHTML(data); document.body.appendChild(pa);
+
+      const canvas = await html2canvas(pa, { scale:2, backgroundColor:"#ffffff" });
+      const img = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p","pt","a4");
+      const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight();
+      const iw = pw - 40, ih = canvas.height * (iw / canvas.width);
+      let y = 20; pdf.addImage(img, "PNG", 20, y, iw, ih);
+      let remaining = ih - (ph - 40);
+      while (remaining > 0) {
+        pdf.addPage(); y = 20 - (ih - remaining);
+        pdf.addImage(img, "PNG", 20, y, iw, ih);
+        remaining -= (ph - 40);
+      }
+      const name = `${clean(data.topic||"dst_toolbox")}_${(data.date||today())}_${clean(data.location||"site")}.pdf`;
+      pdf.save(name);
+      document.body.removeChild(pa);
+      toast("Exported PDF: " + name);
+    };
+
+    /* ===================== WORD EXPORT (optional) ===================== */
+    $("#exportDocxBtn").onclick = async ()=>{
+      try{
+        const { Document, Packer, Paragraph, HeadingLevel, TextRun, Table, TableRow, TableCell, WidthType } = window.docx;
+        const d = collect();
+        const rows = [
+          ["Topic", d.topic], ["Date", d.date], ["Crew Size", d.crew], ["Foreman", d.foreman], ["Location", d.location]
+        ];
+        const tableInfo = new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: rows.map(([k,v]) => new TableRow({ children: [
+            new TableCell({ children: [new Paragraph({ text: k })] }),
+            new TableCell({ children: [new Paragraph({ text: String(v||"") })] }),
+          ]}))
+        });
+        const tableHaz = new Table({
+          width:{ size:100, type:WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({ children:["Task","Hazard","Control","PPE","Ref"].map(h=>new TableCell({children:[new Paragraph({text:h})]})) }),
+            ...(d.hazards||[]).map(h => new TableRow({ children:[
+              new TableCell({ children:[new Paragraph({text:h.task||""})] }),
+              new TableCell({ children:[new Paragraph({text:h.hazard||""})] }),
+              new TableCell({ children:[new Paragraph({text:h.control||""})] }),
+              new TableCell({ children:[new Paragraph({text:h.ppe||""})] }),
+              new TableCell({ children:[new Paragraph({text:h.ref||""})] }),
+            ]}))
+          ]
+        });
+        const doc = new Document({
+          sections:[{children:[
+            new Paragraph({ text: "Toolbox Talk — Daylight Saving Time Safety", heading: HeadingLevel.HEADING_1 }),
+            tableInfo,
+            new Paragraph({ text: "Purpose", heading: HeadingLevel.HEADING_2 }),
+            new Paragraph("The start or end of Daylight-Saving Time (DST) disrupts normal sleep and body rhythms. Studies show a spike in workplace injuries, vehicle accidents, and near-misses during the first week after the time change."),
+            new Paragraph("This briefing reminds crews to slow down, rest properly, and re-check safety systems during the adjustment period."),
+            new Paragraph({ text:"Key Safety Points (selected): "+Object.entries(d.kp||{}).filter(([,v])=>v).map(([k])=>k).join(", "), }),
+            new Paragraph({ text: "Hazards & Controls", heading: HeadingLevel.HEADING_2 }),
+            tableHaz,
+            new Paragraph({ text: "Crew Discussion Prompts", heading: HeadingLevel.HEADING_2 }),
+            ...[
+              "How many hours of sleep did you get last night?",
+              "Are all lighting systems and backup alarms functioning?",
+              "Are you alert enough to perform critical lifts or welding?",
+              "Do we need to adjust our break schedule this week?"
+            ].map(t=>new Paragraph("• "+t)),
+            new Paragraph({ text: "Action Items", heading: HeadingLevel.HEADING_2 }),
+            ...[
+              "Inspect all lighting and PPE.",
+              "Adjust work start times if needed.",
+              "Report any fatigue or vision-related near-miss to the foreman immediately.",
+              "Reinforce “Stop Work Authority” – anyone can pause work if unsafe."
+            ].map(t=>new Paragraph("• "+t)),
+          ]}]
+        });
+        const blob = await Packer.toBlob(doc);
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+        const fname = `${clean(d.topic||"dst_toolbox")}_${(d.date||today())}_${clean(d.location||"site")}.docx`;
+        a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+        toast("Exported Word: " + fname);
+      }catch(e){
+        toast("Word export unavailable in this browser");
+      }
+    };
+
+  </script>
+</body>
+</html>
