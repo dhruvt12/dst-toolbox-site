@@ -8,537 +8,122 @@
   />
   <title>Toolbox Talk – Daylight Saving Time Safety</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0f172a"/>
+  <meta name="theme-color" content="#0b1220"/>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
   <style>
-    :root {
-      --bg:#f8fafc; --fg:#0f172a; --muted:#475569; --card:#ffffff; --border:#e2e8f0; --brand:#0f172a; --accent:#2563eb;
+    :root{
+      --bg: #0b1220;
+      --panel: #0f172a;
+      --card: #0f172a;
+      --border: rgba(255,255,255,0.10);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --brand: #60a5fa;
+      --brand-2: #22d3ee;
+      --err: #f87171;
     }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
-    .wrap{max-width:1100px;margin:0 auto;padding:16px}
-    header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    header img{width:48px;height:48px;border-radius:12px;object-fit:cover;border:1px solid var(--border)}
-    h1{font-size:20px;margin:0}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.03);margin:12px 0}
-    .card .hd{padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600}
-    .card .bd{padding:14px 16px}
-    .grid{display:grid;gap:12px}
-    @media(min-width:720px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-    input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-size:14px}
-    textarea{min-height:100px}
-    .row{display:flex;gap:8px;align-items:center}
-    .btn{appearance:none;border:1px solid var(--border);background:#fff;border-radius:999px;padding:10px 14px;font-weight:600}
-    .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
-    .btn.alt{background:#eef2ff;border-color:#c7d2fe;color:#3730a3}
-    .btn.warn{background:#fee2e2;border-color:#fecaca;color:#991b1b}
-    .btn.ghost{background:#fff}
-    .toolbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.9);backdrop-filter: blur(6px);
-      border-top:1px solid var(--border);display:flex;gap:8px;justify-content:space-between;padding:8px 12px;margin-top:12px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:#fff}
-    .switch{width:40px;height:24px;border-radius:999px;background:#e2e8f0;position:relative;border:1px solid var(--border)}
-    .switch.on{background:#16a34a;border-color:#16a34a}
-    .switch .dot{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:all .15s}
-    .switch.on .dot{left:20px}
-    .hint{font-size:12px;color:var(--muted)}
-    .req{color:#dc2626}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-size:12px}
-    .table{width:100%;border-collapse:collapse;font-size:14px}
-    .table th,.table td{border-top:1px solid var(--border);padding:8px;vertical-align:top}
-    .kpi{display:flex;gap:8px;flex-wrap:wrap}
-    .toast{position:fixed;right:12px;bottom:12px;background:#111827;color:#fff;padding:10px 12px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
-    canvas.sig{width:100%;height:160px;border:1px dashed var(--border);border-radius:12px;background:#fff}
-    .fileman ul{list-style:none;margin:0;padding:0}
-    .fileman li{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding:10px 6px}
-    .print-area{padding:12px}
-    .divider{height:1px;background:var(--border);margin:8px 0}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at -10% -10%, #1e293b 0%, transparent 60%),
+        radial-gradient(1200px 600px at 110% -10%, #0ea5e9 0%, transparent 60%),
+        radial-gradient(1200px 600px at 50% 120%, #1f2937 0%, transparent 60%),
+        var(--bg);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    header.appbar{
+      position:sticky; top:0; z-index:20;
+      display:flex; align-items:center; gap:14px;
+      background: linear-gradient(180deg, #0b1220 0%, rgba(11,18,32,.85) 100%);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:saturate(140%) blur(6px);
+      padding:14px 18px;
+    }
+    header.appbar img{width:60px;height:60px;border-radius:14px;object-fit:cover;border:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+    header.appbar h1{font-size:20px; font-weight:700; margin:0}
+    header.appbar .subtitle{color:var(--muted); font-size:13px}
+    .kicker{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--brand)}
+    .card{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);margin-bottom:18px}
+    .card .hd{padding:14px 16px;font-weight:600;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.03)}
+    .card .bd{padding:16px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    input,textarea,select{
+      width:100%;background:rgba(255,255,255,0.04);color:var(--text);
+      border:1px solid var(--border);border-radius:12px;
+      padding:10px 12px;font-size:14px;outline:none;
+    }
+    input:focus,textarea:focus{border-color:var(--brand)}
+    .btn{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,0.05);
+      color:var(--text);border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#0b1220}
+    .toolbar{position:sticky;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
+      gap:10px;padding:10px 12px;background:rgba(11,18,32,0.9);border-top:1px solid var(--border);backdrop-filter:blur(10px);}
+    .toast{position:fixed;right:14px;bottom:14px;background:#0b1220;color:#fff;
+      border:1px solid var(--border);border-radius:12px;padding:10px 12px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+    .invalid{border-color:var(--err)!important;box-shadow:0 0 0 2px rgba(248,113,113,.2)!important}
   </style>
 </head>
-<body>
-  <div class="wrap">
-       <header>
-     <img id="logo" src="Flawless logo.jpg" alt="Flawless Steel Welding logo" />
-      <div>
-        <h1>Toolbox Talk – Daylight Saving Time Safety</h1>
-        <div class="hint">Mobile friendly • Offline capable • Exports to PDF</div>
-      </div>
-      <div style="margin-left:auto">
-        <label class="pill" for="logoInput">Change logo <input id="logoInput" type="file" accept="image/*" style="display:none"/></label>
-      </div>
-    </header>
 
-    <!-- GENERAL -->
+<body>
+  <!-- Header with your logo -->
+  <header class="appbar">
+    <img id="logo" src="Flawless%20logo.jpg" alt="Flawless Steel Welding logo"/>
+    <div>
+      <div class="kicker">Flawless Steel Welding</div>
+      <h1>Toolbox Talk – Daylight Saving Time Safety</h1>
+      <div class="subtitle">Mobile friendly • Offline capable • PDF exports</div>
+    </div>
+  </header>
+
+  <div class="container">
     <section class="card">
-      <div class="hd">General <span class="hint">(<span class="req">*</span> required)</span></div>
-      <div class="bd grid cols-3">
-        <div><label>Company <span class="req">*</span></label><input id="company" required placeholder="Flawless Steel Welding"></div>
-        <div><label>Project <span class="req">*</span></label><input id="project" required placeholder="Job / Site Name"></div>
-        <div><label>Date <span class="req">*</span></label><input id="date" type="date" required></div>
-        <div><label>Supervisor <span class="req">*</span></label><input id="supervisor" required></div>
-        <div><label>Crew Size</label><input id="crew" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 6"></div>
-        <div><label>Location</label><input id="location" placeholder="Site / Address"></div>
-        <div class="grid cols-3" style="grid-column:1/-1">
-          <div><label>Wind (mph)</label><input id="wind" inputmode="decimal" placeholder="e.g., 12"></div>
-          <div><label>Temp (°F)</label><input id="temp" inputmode="decimal" placeholder="e.g., 75"></div>
-          <div><label>Precipitation</label>
-            <select id="precip"><option value="">None</option><option>Rain</option><option>Snow</option><option>Thunderstorm</option></select>
-          </div>
-        </div>
-        <div style="grid-column:1/-1">
-          <label>Notes</label><textarea id="notes" placeholder="Any special hazards, access, emergency info…"></textarea>
-        </div>
+      <div class="hd">General Information</div>
+      <div class="bd">
+        <label>Company</label><input id="company" value="Flawless Steel Welding">
+        <label>Project</label><input id="project" placeholder="Project name">
+        <label>Date</label><input id="date" type="date">
+        <label>Supervisor</label><input id="supervisor" placeholder="Supervisor name">
+        <label>Location</label><input id="location" placeholder="Site / Address">
       </div>
     </section>
 
-    <!-- KEY POINTS -->
     <section class="card">
       <div class="hd">Key Safety Points</div>
-      <div class="bd kpi">
-        <div class="pill"><span>Fatigue Awareness</span><button class="switch" data-kp="fatigue"><span class="dot"></span></button></div>
-        <div class="pill"><span>Vehicle & Equipment</span><button class="switch" data-kp="vehicle"><span class="dot"></span></button></div>
-        <div class="pill"><span>Site Lighting</span><button class="switch" data-kp="lighting"><span class="dot"></span></button></div>
-        <div class="pill"><span>Elevated Work – 100% Tie-off</span><button class="switch" data-kp="elevated"><span class="dot"></span></button></div>
-        <div class="pill"><span>Housekeeping & Awareness</span><button class="switch" data-kp="housekeeping"><span class="dot"></span></button></div>
-      </div>
-    </section>
-
-    <!-- HAZARDS -->
-    <section class="card">
-      <div class="hd">Hazards & Controls</div>
       <div class="bd">
-        <div class="hint" style="margin-bottom:8px">Add rows as needed. Examples provided.</div>
-        <table class="table" id="hazTable">
-          <thead><tr><th>Task</th><th>Hazard</th><th>Control</th><th>PPE</th><th>Ref</th><th></th></tr></thead>
-          <tbody></tbody>
-        </table>
-        <div style="margin-top:8px" class="row">
-          <button class="btn" id="addHaz">+ Add Row</button>
-          <div class="chips">
-            <span class="chip">Morning travel / Fatigue → Rest 7–8h</span>
-            <span class="chip">Elevated work / Fall → 100% tie-off</span>
-            <span class="chip">Lighting / Electrical → Use GFCI</span>
-          </div>
-        </div>
+        <ul style="margin:0;padding-left:18px;color:var(--text);line-height:1.6">
+          <li>Fatigue Awareness</li>
+          <li>Vehicle & Equipment Operation</li>
+          <li>Site Lighting & Visibility</li>
+          <li>Elevated Work – 100% Tie-off</li>
+          <li>Housekeeping & Situational Awareness</li>
+        </ul>
       </div>
     </section>
 
-    <!-- DISCUSSION / ACTIONS -->
     <section class="card">
-      <div class="hd">Crew Discussion & Action Items</div>
-      <div class="bd grid cols-2">
-        <div>
-          <label>Discussion Prompts</label>
-          <textarea id="discussion">How many hours of sleep did you get last night?
-Are all lighting systems and backup alarms functioning?
-Are you alert enough to perform critical lifts or welding?
-Do we need to adjust our break schedule this week?</textarea>
-        </div>
-        <div>
-          <label>Action Items</label>
-          <textarea id="actions">[ ] Inspect all lighting and PPE
-[ ] Adjust work start times if needed
-[ ] Report any fatigue or vision-related near-miss immediately
-[ ] Reinforce Stop Work Authority</textarea>
-        </div>
-      </div>
-    </section>
-
-    <!-- SUMMARIES -->
-    <section class="card">
-      <div class="hd">Bilingual Summary</div>
-      <div class="bd grid cols-2">
-        <div>
-          <label>English</label>
-          <textarea id="summaryEn">During the first week after the time change, your body may feel tired. Slow down, use extra caution when driving or working on heights, and make sure lights and fall protection are in place.</textarea>
-        </div>
-        <div>
-          <label>Español</label>
-          <textarea id="summaryEs">Durante la primera semana después del cambio de horario, su cuerpo puede sentirse cansado. Trabaje despacio, tenga cuidado al conducir o trabajar en alturas, y asegúrese de que haya buena iluminación y protección contra caídas.</textarea>
-        </div>
-      </div>
-    </section>
-
-    <!-- ATTENDEES -->
-    <section class="card">
-      <div class="hd">Sign-In (Firma de Asistencia)</div>
+      <div class="hd">Notes</div>
       <div class="bd">
-        <div class="grid cols-3">
-          <div><label>Name</label><input id="attName" placeholder="Crew member name"></div>
-          <div><label>Time</label><input id="attTime" placeholder="08:15 AM"></div>
-          <div style="align-self:end"><button class="btn" id="addAtt">Add Attendee</button></div>
-        </div>
-        <div style="margin-top:8px">
-          <label>Signature</label>
-          <canvas id="sig" class="sig"></canvas>
-          <div class="row" style="margin-top:6px">
-            <button class="btn" id="saveSig">Save Signature</button>
-            <button class="btn ghost" id="clearSig">Clear</button>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div id="attList" class="grid"></div>
+        <textarea id="notes" rows="5" placeholder="Any site-specific notes or reminders..."></textarea>
       </div>
     </section>
 
-    <!-- FILE MANAGER -->
-    <section class="card">
-      <div class="hd">Saved Forms (on this device)</div>
-      <div class="bd fileman">
-        <ul id="fileList"></ul>
-      </div>
-    </section>
-
-    <!-- ACTION BAR -->
     <div class="toolbar">
-      <div class="row">
-        <button class="btn" id="saveDraftBtn">Save Draft</button>
-        <span class="hint" id="autosaveHint">Auto-save: every 30s</span>
-      </div>
-      <div class="row">
-        <button class="btn alt" id="validateBtn">Validate</button>
-        <button class="btn primary" id="exportPdfBtn">Export PDF</button>
-      </div>
+      <button class="btn" id="saveDraftBtn">Save Draft</button>
+      <button class="btn primary" id="exportPdfBtn">Export PDF</button>
     </div>
 
     <div id="toast" class="toast" style="display:none"></div>
   </div>
 
-  <!-- libs (UMD, iPad-friendly) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5eYjN5qwjw62w2m6b0p9wY2hY1WcQ0b2p4XyE0+gQx3d+Qxq/XkUOy0jWf4p7b0/8pDvLx1PZ8E0nG0w1xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWENK7o9ZkLm0hWc9G2Hq3y+Z0w0g2QfB2K2e3m7qQ7b8n3yjw3n4K3Q2m0hQd66X2iO1u6p0aR7QXc5kH9Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script>
-    /*********** STATE ***********/
-    const $ = (sel)=>document.querySelector(sel);
-    const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
-    const STORE_KEY="dst_toolbox_draft_v1";
-    const FILES_KEY="dst_toolbox_saved_v1";
-    const LOGO_KEY="dst_toolbox_logo_v1";
-    const d=()=>new Date();
-    const today=()=> new Date().toISOString().slice(0,10);
-
-    const state = {
-      kp:{fatigue:true,vehicle:true,lighting:true,elevated:true,housekeeping:true},
-      hazards: [
-        {task:"Morning travel / mobilization", hazard:"Fatigue, darkness", control:"Rest 7–8 hrs, allow extra commute time", ppe:"Hi-vis vest", ref:"OSHA 1926.21(b)(2)"},
-        {task:"Equipment operation", hazard:"Reduced alertness", control:"Pre-op inspections, peer spot checks", ppe:"Hard hat, eye protection", ref:"FSW Sec.26"},
-        {task:"Elevated work", hazard:"Fall hazard", control:"100% tie-off, inspect harness & lanyard", ppe:"Harness, SRL", ref:"1926.760(a)(1)"}
-      ],
-      attendees:[]
-    };
-
-    /*********** UI INIT ***********/
-    function setLogo(src){
-      $("#logo").src = src;
-      try{ localStorage.setItem(LOGO_KEY, src);}catch{}
-    }
-    // default embedded logo (replace later)
-    setLogo("Flawless logo.jpg");
-
-    $("#logoInput").addEventListener("change",(e)=>{
-      const file=e.target.files?.[0]; if(!file) return;
-      const r=new FileReader(); r.onload=()=>setLogo(r.result); r.readAsDataURL(file);
-    });
-
-    $("#date").value = today();
-    $("#addHaz").addEventListener("click", ()=> addHazardRow({task:"",hazard:"",control:"",ppe:"",ref:""}));
-
-    // add initial hazard rows
-    state.hazards.forEach(addHazardRow);
-
-    function addHazardRow(row){
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td><input value="${escapeHtml(row.task)}" data-f="task"/></td>
-        <td><input value="${escapeHtml(row.hazard)}" data-f="hazard"/></td>
-        <td><input value="${escapeHtml(row.control)}" data-f="control"/></td>
-        <td><input value="${escapeHtml(row.ppe)}" data-f="ppe"/></td>
-        <td><input value="${escapeHtml(row.ref)}" data-f="ref"/></td>
-        <td><button class="btn ghost">✕</button></td>
-      `;
-      tr.querySelector("button").onclick=()=>tr.remove();
-      $("#hazTable tbody").appendChild(tr);
-    }
-
-    $$(".switch").forEach(sw=>{
-      sw.addEventListener("click",()=>{
-        sw.classList.toggle("on");
-        const key=sw.dataset.kp;
-        state.kp[key] = sw.classList.contains("on");
-      });
-      // default ON
-      sw.classList.add("on");
-    });
-
-    /*********** SIGNATURE ***********/
-    const sig = $("#sig");
-    const ctx = sig.getContext("2d");
-    let drawing=false, prev=null;
-    function resizeCanvas(){const r=sig.getBoundingClientRect(); const ratio=window.devicePixelRatio||1; sig.width=r.width*ratio; sig.height=r.height*ratio; ctx.scale(ratio,ratio); ctx.lineWidth=2; ctx.lineCap="round"; ctx.strokeStyle="#0f172a";}
-    resizeCanvas(); window.addEventListener("resize", resizeCanvas);
-    function pos(e){ const t=e.touches? e.touches[0]: e; const r=sig.getBoundingClientRect(); return {x:t.clientX-r.left,y:t.clientY-r.top};}
-    function draw(e){ if(!drawing) return; const p=pos(e); ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x,p.y); ctx.stroke(); prev=p; }
-    sig.addEventListener("mousedown",(e)=>{drawing=true; prev=pos(e)}); sig.addEventListener("mousemove",draw); window.addEventListener("mouseup",()=>drawing=false);
-    sig.addEventListener("touchstart",(e)=>{drawing=true; prev=pos(e)}); sig.addEventListener("touchmove",(e)=>{draw(e); e.preventDefault()},{passive:false}); window.addEventListener("touchend",()=>drawing=false);
-
-    $("#clearSig").onclick=()=>{ctx.clearRect(0,0,sig.width,sig.height); resizeCanvas();}
-    $("#saveSig").onclick=()=>{
-      const name=$("#attName").value.trim();
-      const time= $("#attTime").value.trim() || new Date().toLocaleTimeString();
-      if(!name){toast("Enter name first"); return;}
-      const url=sig.toDataURL("image/png");
-      state.attendees.push({name,time,signature:url});
-      $("#attName").value=""; $("#attTime").value="";
-      ctx.clearRect(0,0,sig.width,sig.height); resizeCanvas();
-      renderAttendees();
-      toast("Signature saved");
-    };
-    function renderAttendees(){
-      const box=$("#attList");
-      box.innerHTML="";
-      state.attendees.forEach((a,i)=>{
-        const div=document.createElement("div");
-        div.className="row";
-        div.style.justifyContent="space-between";
-        div.innerHTML=`<div>
-          <div><strong>${escapeHtml(a.name)}</strong> <span class="hint">${escapeHtml(a.time)}</span></div>
-          <img src="${a.signature}" alt="sig" style="height:40px;border:1px solid var(--border);border-radius:8px;background:#fff"/>
-        </div>
-        <button class="btn ghost" data-i="${i}">Delete</button>`;
-        div.querySelector("button").onclick=()=>{state.attendees.splice(i,1); renderAttendees();};
-        box.appendChild(div);
-      });
-    }
-
-    /*********** VALIDATION ***********/
-    function validate(){
-      const reqIds=["company","project","date","supervisor"];
-      let ok=true;
-      reqIds.forEach(id=>{
-        const el=$("#"+id);
-        if(!el.value.trim()){ ok=false; el.style.borderColor="#ef4444"; }
-        else el.style.borderColor="var(--border)";
-      });
-      if(!ok) toast("Please complete required fields (marked *)");
-      return ok;
-    }
-    $("#validateBtn").onclick=validate;
-
-    /*********** DRAFT SAVE / LOAD ***********/
-    function collect(){
-      const hazards = Array.from($("#hazTable tbody").querySelectorAll("tr")).map(tr=>{
-        const cell = (f)=> tr.querySelector(`[data-f="${f}"]`).value.trim();
-        return {task:cell("task"), hazard:cell("hazard"), control:cell("control"), ppe:cell("ppe"), ref:cell("ref")};
-      });
-      return {
-        company:$("#company").value.trim(),
-        project:$("#project").value.trim(),
-        date:$("#date").value,
-        supervisor:$("#supervisor").value.trim(),
-        crew:$("#crew").value.trim(),
-        location:$("#location").value.trim(),
-        wind:$("#wind").value.trim(),
-        temp:$("#temp").value.trim(),
-        precip:$("#precip").value,
-        notes:$("#notes").value,
-        kp:state.kp, hazards,
-        discussion:$("#discussion").value,
-        actions:$("#actions").value,
-        summaryEn:$("#summaryEn").value,
-        summaryEs:$("#summaryEs").value,
-        attendees:state.attendees
-      };
-    }
-    function fill(d){
-      if(!d) return;
-      $("#company").value=d.company||"";
-      $("#project").value=d.project||"";
-      $("#date").value=d.date||today();
-      $("#supervisor").value=d.supervisor||"";
-      $("#crew").value=d.crew||"";
-      $("#location").value=d.location||"";
-      $("#wind").value=d.wind||"";
-      $("#temp").value=d.temp||"";
-      $("#precip").value=d.precip||"";
-      $("#notes").value=d.notes||"";
-      // kp:
-      for(const k in state.kp){
-        const on = d.kp?.[k] ?? true;
-        state.kp[k]=on;
-        const sw = document.querySelector(`.switch[data-kp="${k}"]`);
-        if(sw){ sw.classList.toggle("on", !!on); }
-      }
-      // hazards:
-      $("#hazTable tbody").innerHTML="";
-      (d.hazards?.length? d.hazards : state.hazards).forEach(addHazardRow);
-      $("#discussion").value=d.discussion || $("#discussion").value;
-      $("#actions").value=d.actions || $("#actions").value;
-      $("#summaryEn").value=d.summaryEn || $("#summaryEn").value;
-      $("#summaryEs").value=d.summaryEs || $("#summaryEs").value;
-      state.attendees = d.attendees || [];
-      renderAttendees();
-    }
-    function saveDraft(){
-      try { localStorage.setItem(STORE_KEY, JSON.stringify(collect())); toast("Draft saved"); } catch(e){ toast("Could not save draft"); }
-      renderFiles(); // refresh list
-    }
-    $("#saveDraftBtn").onclick=saveDraft;
-
-    // Auto-save every 30s
-    setInterval(()=>{ try{ localStorage.setItem(STORE_KEY, JSON.stringify(collect())); $("#autosaveHint").textContent="Auto-saved at "+new Date().toLocaleTimeString(); }catch{} }, 30000);
-
-    // Load draft on startup
-    fill( safeParse(localStorage.getItem(STORE_KEY)) );
-
-    /*********** EXPORT PDF ***********/
-    $("#exportPdfBtn").onclick=async ()=>{
-      if(!validate()) return;
-      const { jsPDF } = window.jspdf;
-      // Build a printable area
-      const pa = document.createElement("div");
-      pa.className="print-area";
-      pa.style.width="794px"; // A4 @ 96dpi approx
-      pa.innerHTML = buildPrintableHTML(collect(), $("#logo").src);
-      document.body.appendChild(pa);
-      const canvas = await html2canvas(pa, { scale:2, backgroundColor:"#ffffff" });
-      const img = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p","pt","a4");
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pageWidth-40;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      let y=20;
-      pdf.addImage(img, "PNG", 20, y, imgWidth, imgHeight);
-      // paginate if needed
-      let remaining = imgHeight - (pageHeight - 40);
-      while (remaining > 0) {
-        pdf.addPage();
-        y = 20 - (imgHeight - remaining);
-        pdf.addImage(img, "PNG", 20, y, imgWidth, imgHeight);
-        remaining -= (pageHeight - 40);
-      }
-      const filename = makeFilename($("#project").value || "site");
-      pdf.save(filename);
-      document.body.removeChild(pa);
-
-      // Store a JSON record in "Saved Forms" (regenerate PDF anytime)
-      const records = safeParse(localStorage.getItem(FILES_KEY)) || [];
-      records.unshift({ id:crypto.randomUUID(), when:new Date().toISOString(), filename, data:collect() });
-      localStorage.setItem(FILES_KEY, JSON.stringify(records));
-      renderFiles();
-      toast("Exported PDF: " + filename);
-    };
-
-    function buildPrintableHTML(d, logoSrc){
-      const kp = Object.entries(d.kp||{}).filter(([,v])=>v).map(([k])=>({
-        fatigue:"Fatigue Awareness", vehicle:"Vehicle & Equipment",
-        lighting:"Site Lighting", elevated:"Elevated Work – 100% Tie-off", housekeeping:"Housekeeping & Awareness"
-      }[k])).join(" • ");
-      const haz = (d.hazards||[]).map(h=>`<tr><td>${escapeHtml(h.task||"")}</td><td>${escapeHtml(h.hazard||"")}</td><td>${escapeHtml(h.control||"")}</td><td>${escapeHtml(h.ppe||"")}</td><td>${escapeHtml(h.ref||"")}</td></tr>`).join("");
-      const atts = (d.attendees||[]).map(a=>`<div style="margin:6px 0"><strong>${escapeHtml(a.name)}</strong> <span style="color:#64748b">${escapeHtml(a.time||"")}</span><br><img src="${a.signature}" style="height:32px;border:1px solid #e5e7eb;border-radius:6px"/></div>`).join("");
-      return `
-        <div style="display:flex;align-items:center;gap:12px;border-bottom:1px solid #e5e7eb;padding-bottom:8px;margin-bottom:8px">
-          <img src="${logoSrc}" style="width:56px;height:56px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover"/>
-          <div>
-            <div style="font-size:18px;font-weight:700">Toolbox Talk – Daylight Saving Time Safety</div>
-            <div style="color:#64748b">Generated ${new Date().toLocaleString()}</div>
-          </div>
-        </div>
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <tr><td><b>Company</b></td><td>${escapeHtml(d.company||"")}</td><td><b>Project</b></td><td>${escapeHtml(d.project||"")}</td></tr>
-          <tr><td><b>Date</b></td><td>${escapeHtml(d.date||"")}</td><td><b>Supervisor</b></td><td>${escapeHtml(d.supervisor||"")}</td></tr>
-          <tr><td><b>Crew</b></td><td>${escapeHtml(d.crew||"")}</td><td><b>Location</b></td><td>${escapeHtml(d.location||"")}</td></tr>
-          <tr><td><b>Weather</b></td><td colspan="3">Wind ${escapeHtml(d.wind||"-")} mph • Temp ${escapeHtml(d.temp||"-")}°F • ${escapeHtml(d.precip||"No precipitation")}</td></tr>
-        </table>
-        <div style="height:8px"></div>
-        <div><b>Key Safety Points:</b> ${escapeHtml(kp)}</div>
-        <div style="height:8px"></div>
-        <div><b>Hazards & Controls</b></div>
-        <table style="width:100%;border-collapse:collapse;font-size:12px" border="1" cellspacing="0" cellpadding="4">
-          <thead><tr style="background:#f1f5f9"><th>Task</th><th>Hazard</th><th>Control</th><th>PPE</th><th>Ref</th></tr></thead>
-          <tbody>${haz}</tbody>
-        </table>
-        <div style="height:8px"></div>
-        <div><b>Discussion</b><br>${escapeHtml(d.discussion||"")}</div>
-        <div style="height:8px"></div>
-        <div><b>Action Items</b><br>${escapeHtml(d.actions||"")}</div>
-        <div style="height:8px"></div>
-        <div><b>Summary (EN)</b><br>${escapeHtml(d.summaryEn||"")}</div>
-        <div style="height:8px"></div>
-        <div><b>Resumen (ES)</b><br>${escapeHtml(d.summaryEs||"")}</div>
-        <div style="height:8px"></div>
-        <div><b>Attendees</b><br>${atts || "<i>No attendees captured</i>"}</div>
-      `;
-    }
-
-    function makeFilename(project){
-      const clean=(s)=> (s||"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
-      const ts = new Date().toISOString().replace(/[:.]/g,"").replace("T","_").slice(0,15);
-      return `${clean(project)}_dst_toolbox_${ts}.pdf`;
-    }
-
-    /*********** FILE MANAGER ***********/
-    function renderFiles(){
-      const list = $("#fileList");
-      const items = safeParse(localStorage.getItem(FILES_KEY)) || [];
-      if(!items.length){ list.innerHTML = `<li><span class="hint">No saved forms yet. Exports will appear here.</span></li>`; return; }
-      list.innerHTML = items.map(r=>{
-        const when = new Date(r.when).toLocaleString();
-        return `<li>
-          <div>
-            <div><strong>${escapeHtml(r.filename)}</strong></div>
-            <div class="hint">${when}</div>
-          </div>
-          <div class="row">
-            <button class="btn ghost" data-act="open" data-id="${r.id}">Open</button>
-            <button class="btn ghost" data-act="reexport" data-id="${r.id}">PDF</button>
-            <button class="btn warn" data-act="del" data-id="${r.id}">Delete</button>
-          </div>
-        </li>`;
-      }).join("");
-
-      list.querySelectorAll("button").forEach(btn=>{
-        btn.onclick = ()=>{
-          const id=btn.dataset.id; const act=btn.dataset.act;
-          const items = safeParse(localStorage.getItem(FILES_KEY)) || [];
-          const rec = items.find(x=>x.id===id); if(!rec) return;
-          if(act==="open"){ fill(rec.data); toast("Form loaded"); }
-          else if(act==="del"){ const keep=items.filter(x=>x.id!==id); localStorage.setItem(FILES_KEY, JSON.stringify(keep)); renderFiles(); toast("Deleted"); }
-          else if(act==="reexport"){
-            // regenerate PDF quickly
-            const { jsPDF } = window.jspdf;
-            const pa = document.createElement("div"); pa.className="print-area"; pa.style.width="794px";
-            pa.innerHTML = buildPrintableHTML(rec.data, $("#logo").src); document.body.appendChild(pa);
-            html2canvas(pa,{scale:2,backgroundColor:"#fff"}).then(canvas=>{
-              const img=canvas.toDataURL("image/png"); const pdf=new jsPDF("p","pt","a4");
-              const pw=pdf.internal.pageSize.getWidth(), ph=pdf.internal.pageSize.getHeight(), iw=pw-40, ih=canvas.height*iw/canvas.width; let y=20;
-              pdf.addImage(img,"PNG",20,y,iw,ih); let rem=ih-(ph-40);
-              while(rem>0){ pdf.addPage(); y=20-(ih-rem); pdf.addImage(img,"PNG",20,y,iw,ih); rem -= (ph-40); }
-              pdf.save(rec.filename);
-              document.body.removeChild(pa);
-            });
-          }
-        };
-      });
-    }
-    renderFiles();
-
-    /*********** TOAST ***********/
-    let to=null;
-    function toast(msg){
-      const t=$("#toast"); t.textContent=msg; t.style.display="block";
-      clearTimeout(to); to=setTimeout(()=>t.style.display="none", 2200);
-    }
-
-    /*********** SW (OFFLINE) ***********/
-    if("serviceWorker" in navigator){
-      window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-    }
-
-    /*********** UTIL ***********/
-    function safeParse(s){ try{return JSON.parse(s)}catch{return null}}
-    function escapeHtml(s){ return (s||"").replace(/[&<>\"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])) }
-  </script>
-</body>
-</html>
+  <!-- PDF + html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.
